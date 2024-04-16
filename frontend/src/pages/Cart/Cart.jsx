@@ -3,7 +3,7 @@ import './Cart.css'
 
 const Cart = () => {
   
-  const {cartItems,food_list,removeFromCart} = useContext(StoreContext);
+  const {cartItems,food_list,removeFromCart,getTotalCartAmount} = useContext(StoreContext);
   
   return (
     <div className="cart">
@@ -18,9 +18,8 @@ const Cart = () => {
         </div>
         <br />
         <hr />
-        {food_list.map((item,index)=>{
-          if(cartItems[item._id]>0)
-          {
+        {food_list.map((item, index) => {
+          if (cartItems[item._id] > 0) {
             return (
               <div>
                 <div className="cart-items-title cart-items-item">
@@ -29,7 +28,9 @@ const Cart = () => {
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>
                   <p>${item.price * cartItems[item._id]}</p>
-                  <p onClick={()=>removeFromCart(item._id)} className='cross'>x</p>
+                  <p onClick={() => removeFromCart(item._id)} className="cross">
+                    x
+                  </p>
                 </div>
                 <hr />
               </div>
@@ -37,27 +38,31 @@ const Cart = () => {
           }
         })}
       </div>
-      <div className='cart-bottom'>
-        <div className='cart-total'>
+      <div className="cart-bottom">
+        <div className="cart-total">
           <h2>Cart Totals</h2>
           <div>
-            <div className='cart-total-details'>
+            <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>{2}</p>
+              <p>${getTotalCartAmount()}</p>
+            </div>
+            <div className="cart-toal-details">
+              <b>Delivery Fee</b>
+              <b>${2}</b>
             </div>
             <hr />
-            <div className='cart-toal-details'>
+            <div className="cart-toal-details">
               <b>Total</b>
-              <b>{0}</b>
+              <b>${getTotalCartAmount()+2}</b>
             </div>
           </div>
           <button>PROCEED TO CHECKOUT</button>
         </div>
-        <div className='cart-promocode'>
+        <div className="cart-promocode">
           <div>
             <p>If you have a promo code, Enter it here</p>
-            <div className='cart-promocode-input'>
-              <input type='text' placeholder='promo code'/>
+            <div className="cart-promocode-input">
+              <input type="text" placeholder="promo code" />
               <button>Submit</button>
             </div>
           </div>
